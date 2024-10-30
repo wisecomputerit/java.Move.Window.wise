@@ -1,0 +1,33 @@
+import javax.swing.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+public class MovableWindow {
+    private static int offsetX, offsetY;
+
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("可移动窗口");
+        frame.setSize(400, 300);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLocationRelativeTo(null);
+
+        // 添加鼠标事件监听器
+        frame.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                offsetX = e.getX();
+                offsetY = e.getY();
+            }
+        });
+
+        frame.addMouseMotionListener(new MouseAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                // 移动窗口
+                frame.setLocation(frame.getX() + e.getX() - offsetX, frame.getY() + e.getY() - offsetY);
+            }
+        });
+
+        frame.setVisible(true);
+    }
+}
